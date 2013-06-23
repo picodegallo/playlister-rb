@@ -1,4 +1,3 @@
-
 class Artist 
 
   attr_accessor :name, :songs, :genres
@@ -9,6 +8,10 @@ class Artist
     Roster << self
     @songs = []
     @genres = []
+  end
+
+  def get_binding
+    binding
   end
 
   def self.reset_artists

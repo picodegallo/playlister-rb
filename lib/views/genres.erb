@@ -1,0 +1,6 @@
+<h1>Genre List</h1>
+<ol>
+  <% Genre.all.each do |genre| %>
+    <li><%= genre.name %> - <%= genre.songs.count %> songs, <%= genre.artists.count %> artists</li>
+  <% end %>
+</ol>

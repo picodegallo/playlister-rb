@@ -1,7 +1,7 @@
-require_relative "lib/artist"
-require_relative "lib/song"
-require_relative "lib/genre"
-require_relative "lib/parse"
+require_relative "lib/models/artist"
+require_relative "lib/models/song"
+require_relative "lib/models/genre"
+require_relative "lib/models/parse"
 
 class Jukebox
 
@@ -10,6 +10,12 @@ class Jukebox
     Artist.reset_artists
     Genre.reset_genres
     Song.reset_songs
+
+    def initialize
+      Parse.new.parse
+      self.greeting
+      self.ask_for_input
+    end
 
     def greeting
       puts "Welcome to THE JUKEBOX OF THE MOTHER FUCKIN FUTURE"
@@ -36,6 +42,7 @@ class Jukebox
       Artist.all[input-1].songs.each_with_index do |song, int|
         puts "#{int+1}. #{song.name} - #{song.genre.name}"
       end
+      ask_for_input
     end 
 
     def genre
@@ -49,24 +56,20 @@ class Jukebox
       Genre.all.sort_by{|genre| genre.songs.count}.reverse
     end
 
-   def choose_a_genre
-    puts "Choose a genre's number to see a song list:"
-    input = gets.strip.to_i
-    puts "#{Genre.all[input-1].name}: "
-    Genre.all[input-1].songs.each_with_index do |song, int|
+    def choose_a_genre
+      puts "Choose a genre's number to see a song list:"
+      input = gets.strip.to_i
+      puts "#{Genre.all[input-1].name}: "
+      Genre.all[input-1].songs.each_with_index do |song, int|
         puts "#{int+1}. #{song.artist.name} - #{song.name}"
       end
-   end
-
-   def initialize
-      Parse.new.parse
-      self.greeting
-      self.ask_for_input
+      ask_for_input
     end
 
 end
 
 Jukebox.new
+
 
 
 
