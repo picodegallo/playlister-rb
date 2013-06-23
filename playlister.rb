@@ -1,8 +1,10 @@
 require 'erb'
+require_relative "lib/models/init_genres"
+require_relative "lib/models/init_songs"
 require_relative "lib/models/init_artist"
-require_relative "lib/models/artist"
-require_relative "lib/models/song"
 require_relative "lib/models/genre"
+require_relative "lib/models/song"
+require_relative "lib/models/artist"
 require_relative "lib/models/parse"
 
 class Playlister
@@ -44,14 +46,27 @@ Artist.all.each do |artist|
   end
 end
 
-######### GENRES PAGE ##############
-template = ERB.new(File.read("lib/views/genres.erb"))
-html_content = template.result(playlist.get_binding)
-File.open("genres.html", "w") do |file|
-  file.puts html_content
+####### SONGS PAGE ###########
+Song.all.each do |song|
+  init_songs = InitSongs.new(song)
+  template = ERB.new(File.read("lib/views/songs.erb"))
+  html_content = template.result(init_songs.get_binding)
+  f = File.new("songs/#{song.name.downcase}.html", "w")
+  File.open(f, "w") do |file|
+    file.puts html_content
+  end
 end
 
-
+######### GENRES PAGE ##############
+Genre.all.each do |genre|
+  init_genres = InitGenres.new(genre)
+  template = ERB.new(File.read("lib/views/genres.erb"))
+  html_content = template.result(init_genres.get_binding)
+  f = File.new("genres/#{genre.name.downcase}.html", "w")
+  File.open(f, "w") do |file|
+    file.puts html_content
+  end
+end
 
 
 

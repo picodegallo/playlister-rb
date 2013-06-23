@@ -1,6 +1,7 @@
-<h1>Genre List</h1>
+<h1><%=@genre.name%></h1>
+<h3>Artists:</h3>
 <ol>
-  <% Genre.all.each do |genre| %>
-    <li><%= genre.name %> - <%= genre.songs.count %> songs, <%= genre.artists.count %> artists</li>
-  <% end %>
+    <% @genre.artists.each do |artist|%>
+    <li><a href="<%="../artists/#{artist.name.downcase}.html"%>"><%=artist.name%></a></li>
+    <%end%>
 </ol>
