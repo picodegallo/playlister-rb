@@ -9,10 +9,6 @@ require_relative "lib/models/parse"
 
 class Playlister
 
-  Artist.reset_artists
-  Genre.reset_genres
-  Song.reset_songs
-
   def initialize
     Parse.new.parse
   end
