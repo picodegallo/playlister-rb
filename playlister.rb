@@ -40,7 +40,7 @@ Artist.all.each do |artist|
   init_artist = InitArtist.new(artist)
   template = ERB.new(File.read("lib/views/artists.erb"))
   html_content = template.result(init_artist.get_binding)
-  f = File.new("artists/#{artist.name.downcase}.html", "w")
+  f = File.new("artists/#{artist.name.downcase}.html")
   File.open(f, "w") do |file|
     file.puts html_content
   end
@@ -51,7 +51,7 @@ Song.all.each do |song|
   init_songs = InitSongs.new(song)
   template = ERB.new(File.read("lib/views/songs.erb"))
   html_content = template.result(init_songs.get_binding)
-  f = File.new("songs/#{song.name.downcase}.html", "w")
+  f = File.new("songs/#{song.name.downcase}.html")
   File.open(f, "w") do |file|
     file.puts html_content
   end
@@ -62,7 +62,7 @@ Genre.all.each do |genre|
   init_genres = InitGenres.new(genre)
   template = ERB.new(File.read("lib/views/genres.erb"))
   html_content = template.result(init_genres.get_binding)
-  f = File.new("genres/#{genre.name.downcase}.html", "w")
+  f = File.new("genres/#{genre.name.downcase}.html")
   File.open(f, "w") do |file|
     file.puts html_content
   end
